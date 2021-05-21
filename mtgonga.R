@@ -5,10 +5,10 @@ use_git_config(
   user.email = "sondre.sorsdal@gmail.com.com"
 )
 
+usethis::use_git_remote("origin", url = NULL, overwrite = TRUE)
 
 
-
-
+use_git()
 
 use_github()
 
