@@ -8,6 +8,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+library(janitor) cleans the column names in a dataset to make it consistent and easier to use.
+
 \#Title
 
 ## Loading packages

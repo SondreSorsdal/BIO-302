@@ -31,7 +31,6 @@ Site_L_df <- data_L %>%
   group_by(plot) %>% 
   summarise(total = sum(production))
 
-
 Site_M_df <- data_M %>% 
   filter(production > 0) %>% 
   group_by(plot) %>% 
@@ -47,6 +46,8 @@ Site_H_df <- data_H %>%
   group_by(plot) %>% 
   summarise(total = sum(production))
 
+
+
 #Another way of doing above code
 #Site_L_df <- 
 #  data_L %>% 
@@ -58,4 +59,4 @@ Site_H_df <- data_H %>%
 #some new comments to test git
 #some more comments
   
-  
+esquisse::esquisser()
