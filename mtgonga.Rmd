@@ -1,0 +1,47 @@
+---
+title: "mtgonga"
+author: "Sondre Soersdal"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\#Title
+
+## Loading packages
+
+Here I load the necessary packages
+
+```{r Loading:packages}
+library(tidyverse)
+library(stringr)
+library(readxl)
+```
+
+
+## Getting data
+**Data was imported from an excel file**
+
+```{r getting:data, results = "hide", warning=FALSE, message=FALSE}
+biomass2015 <- "biomass2015.xls"
+biomass.total <- excel_sheets(biomass2015) %>% 
+  map_dfr(~read_excel(biomass2015, sheet = .x))
+```
+
+```{r data:manipulation, echo=FALSE}
+biomass.df <- biomass.total %>% 
+  select(c(site, plot, production)) %>%
+  group_by(site, plot) %>% 
+  summarise(biomass = sum(production, na.rm = TRUE))
+```
+
+## Boxplot showing biomass at the different sites
+
+```{r plot, echo=FALSE}
+
+ggplot(biomass.df, aes(x = site, y = biomass, fill = site)) +
+  geom_boxplot()
+  
+```
