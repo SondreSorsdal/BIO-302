@@ -25,10 +25,10 @@ Find the range, mean, median and variance of variable `bill_length_mm`.
 
 ##Finding the mean
 ```{r}
-penguins %>% 
+p2 <-penguins %>% 
   select(bill_length_mm) %>%
   summarise(mean = mean(bill_length_mm, na.rm = TRUE)) %>% 
-  head()
+  head(p2)
 ```
 
 ##Finding the median
@@ -80,8 +80,12 @@ head(standard_error)
 
 Plot a histogram of variable `bill_length_mm`.
 ```{r}
-ggplot(p2, aes(x = bill_length_mm, y = biomass, fill = site)) +
-  geom_histogram()
+ggplot(p2, aes(x = bill_length_mm)) +
+  geom_histogram() +
+geom_vline(xintercept = mean(p2),        # Add line for mean
+             col = "red",
+             lwd = 3) 
+
 ```
 
 Mark the position of the mean and median.
