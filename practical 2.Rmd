@@ -92,8 +92,11 @@ anova(fit.lm, fit1.lm)
 
 
 ```
- ***Model 2 has a lower RSS meaning it is bettet***
+ ***Model 2 has a lower RSS meaning it is better***
 
-9. Does species improve the model?
+##9. Does species improve the model?
+
+***Yes, including species in the model improves the model***
+
 10. How should the coefficients be interpreted?
 
