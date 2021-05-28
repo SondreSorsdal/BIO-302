@@ -20,6 +20,17 @@ library(palmerpenguins)
 view(penguins)
 ```
 
+##Code from Richard (next day review) 
+
+cor.test(~ bill_length_mm + bill_depth_mm, data = penguins, use = "dataframe",
+subset = speciess == "Gentoo")
+
+penguins %>% 
+group_by(species) %>% 
+summarise(cor = cor( bill_length_mm, bill_depth_mm, use="dataframe"))
+
+
+broom::glance pulls out results and makes it into a tibble. If you do a correlation test and get results, you can use broom::glance. 
 
 Find the range, mean, median and variance of variable `bill_length_mm`.
 
@@ -81,13 +92,13 @@ head(standard_error)
 
 
 Plot a histogram of variable `bill_length_mm`.
+
+Plotting histogram and marking the position of the mean and median.
 ```{r}
 ggplot(bill_peng, aes(x = bill_length_mm)) +
   geom_histogram() +
-geom_vline(xintercept = mean(bill_peng),        # Add line for mean
-             col = "red",
-             lwd = 3) 
-
+  geom_vline(xintercept = mean(penguins$bill_length_mm, na.rm = TRUE), colour = "red") +
+geom_vline(xintercept = median(penguins$bill_length_mm, na.rm = TRUE), colour = "blue")
 ```
 
 Mark the position of the mean and median.
@@ -95,6 +106,20 @@ Mark the position of the mean and median.
 Plot `bill_length_mm` against `bill_depth_mm`
 
 Find the covariance and correlation of `bill_length_mm` against `bill_depth_mm`.
+```{r}
+#Finding correlation between bill length and bill depth.
+penguins %>% 
+group_by(species) %>% 
+na.exclude() %>% 
+summarise(cor = cor( bill_length_mm, bill_depth_mm)) 
+  
+#Finding covariance between bill length and bill depth.
+penguins %>% 
+group_by(species) %>% 
+na.exclude() %>% 
+summarise(cov = cov( bill_length_mm, bill_depth_mm)) 
+```
+
 
 Is the correlation significant? (hint use cor.test())
 
