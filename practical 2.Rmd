@@ -1,0 +1,80 @@
+---
+title: "Linear models"
+author: "Richard J. Telford"
+date: "May 26, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Linear Modelling Exercises
+
+##1. Import the penguin data from the `palmerpenguin` package
+
+##Loading packages
+
+```{r}
+library(qpcR)
+library(tidyverse)
+library(palmerpenguins)
+head(penguins)
+
+```
+
+##2. Do big birds have big beaks? Fit a linear model between bill length and body mass, and interpret the coefficients.
+```{r}
+ length_bodymass.df <- penguins %>% 
+  select(bill_length_mm, body_mass_g) %>% 
+  na.exclude()
+head (length_bodymass.df)
+
+fit.lm <- lm(bill_length_mm~body_mass_g, data = length_bodymass.df)
+
+#plot(length_bodymass.df$bill_length_mm, length_bodymass.df$body_mass_g)
+#lines(length_bodymass.df$bill_length_mm, fitted(fit.lm), col = "red")
+
+summary(fit.lm)
+
+ggplot(length_bodymass.df) +
+  aes(x = bill_length_mm, y = body_mass_g) +
+  geom_point(shape = "circle", size = 1.5, colour = "#112446") +
+  geom_smooth(method = lm,formula = y~x, colour = "red")
+  theme_minimal()
+  
+par(mfrow=c(2,2))  
+plot(fit.lm)
+  
+#Residual vs Fitted shows a flat line (good)
+#Normal Q-Q seems to follow line?
+#Scale_location: somewhat flat line
+
+
+```
+
+
+##3. Examine the diagnostics plots. Is everything OK?
+
+Yes
+
+##3. Calculate the residual sum of squares (find sum the squared difference between the estimates calculated from the coefficients and the observed values).
+
+```{r}
+deviance(fit.lm)
+
+#Package that is supposed to calculate RSS
+RSS(fit.lm)
+
+```
+
+
+
+4. Recalculate the Residual sum of squares using different values for the coefficients (in the formula yi = Beta + Beta xi + εi).
+5. Is the new RSS larger or smaller?
+6. Estimate the slope using covariance and variance.
+7. Do you get the same result?
+8. Add species to the model as a predictor.
+9. Does species improve the model?
+10. How should the coefficients be interpreted?
+

@@ -118,6 +118,11 @@ penguins %>%
 group_by(species) %>% 
 na.exclude() %>% 
 summarise(cov = cov( bill_length_mm, bill_depth_mm)) 
+
+#penguins %>% 
+#  group_by(species) %>% 
+#  summarise(cor = broom::glance(cor.test(bill_length_mm, #bill_depth_mm)))
+
 ```
 
 
