@@ -64,17 +64,36 @@ Yes
 deviance(fit.lm)
 
 #Package that is supposed to calculate RSS
-RSS(fit.lm)
+#RSS(fit.lm)
+
 
 ```
 
 
 
 4. Recalculate the Residual sum of squares using different values for the coefficients (in the formula yi = Beta + Beta xi + εi).
+
+```{r}
+
+```
+
+
 5. Is the new RSS larger or smaller?
 6. Estimate the slope using covariance and variance.
 7. Do you get the same result?
-8. Add species to the model as a predictor.
+##8. Add species to the model as a predictor + 9. Does species improve the model?
+
+```{r}
+fit1.lm <- lm(bill_length_mm~body_mass_g + species, data = penguins)
+
+summary(fit1.lm)
+
+anova(fit.lm, fit1.lm)
+
+
+```
+ ***Model 2 has a lower RSS meaning it is bettet***
+
 9. Does species improve the model?
 10. How should the coefficients be interpreted?
 
