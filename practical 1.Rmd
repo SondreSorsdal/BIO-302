@@ -25,18 +25,18 @@ Find the range, mean, median and variance of variable `bill_length_mm`.
 
 ##Finding the mean
 ```{r}
-p2 <-penguins %>% 
+mean_peng <-penguins %>% 
   select(bill_length_mm) %>%
-  summarise(mean = mean(bill_length_mm, na.rm = TRUE)) %>% 
-  head(p2)
+  summarise(mean = mean(bill_length_mm, na.rm = TRUE)) 
+  head(mean_peng)
 ```
 
 ##Finding the median
 ```{r}
- penguins %>% 
+ median_peng <- penguins %>% 
   select(bill_length_mm) %>%
-  summarise(median = median(bill_length_mm, na.rm = TRUE)) %>% 
-  head()
+  summarise(median = median(bill_length_mm, na.rm = TRUE))
+  head(median_peng)
 
 
 
@@ -44,11 +44,12 @@ p2 <-penguins %>%
 
 ##Finding the variance
 ```{r}
- p3 <- penguins %>% 
+ var_peng <- penguins %>% 
   select(bill_length_mm) %>%
-  summarise(variance = var(bill_length_mm, na.rm = TRUE)) 
+  summarise(variance = var(bill_length_mm, na.rm = TRUE))
+  
+head(var_peng)
 
-  head(p3)
 
 
 
@@ -61,8 +62,9 @@ What is the standard error of the mean of `bill_length_mm`.
 Finding the SD first, then the standard error
 ```{r}
 #Selecting only the column that needs to be counted
-p2 <- penguins %>% 
-  select(bill_length_mm)
+bill_peng <- penguins %>% 
+  select(bill_length_mm) %>% 
+  na.exclude()
 
 #Counting number of observations for bill_Length_mm
 #tally(p2)
@@ -72,7 +74,7 @@ p2 <- penguins %>%
 #SD = sqrt(var(y))
 #sqrt(p3)
 
-standard_error <- sqrt(p3)/sqrt(tally(p2))
+standard_error <- sqrt(var_peng)/sqrt(tally(bill_peng))
 head(standard_error)
 #Standard error is 0.294
 ```
@@ -80,9 +82,9 @@ head(standard_error)
 
 Plot a histogram of variable `bill_length_mm`.
 ```{r}
-ggplot(p2, aes(x = bill_length_mm)) +
+ggplot(bill_peng, aes(x = bill_length_mm)) +
   geom_histogram() +
-geom_vline(xintercept = mean(p2),        # Add line for mean
+geom_vline(xintercept = mean(bill_peng),        # Add line for mean
              col = "red",
              lwd = 3) 
 
