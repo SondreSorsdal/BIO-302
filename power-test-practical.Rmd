@@ -55,6 +55,42 @@ test
 
 Make your simulation into a function and repeat it 100 times. What proportion of trials are statistically significant.
 
+```{r}
+sim_t_test <- function(n, delta, sd, ...){
+  mu <- rep(c(0,delta), each = n)
+  y <- mu + rnorm(length(mu), sd = sd)
+  x <- factor(rep(c("A","B"), each = n))
+  
+  #run test
+  test <- t.test(y ~ x)
+  broom::tidy(test) %>% 
+    mutate(n = n, delta = delta, sd = sd)
+}
+
+sim_t_test(n = 10, sd = 0.2, delta = 0.1)
+
+nrep = 100
+
+control <- crossing(rep_no = 1:nrep, n = seq(10,100,20))
+
+runs <- control %>% 
+  pmap_df(sim_t_test, delta = 0.1, sd = 0.2) %>% 
+  mutate(sig = p.value <= 0.05)
+runs
+
+p <- runs %>% 
+  group_by(n) %>% 
+  summarise(power = mean(sig)) %>% 
+  ggplot(aes(x = n, y = power)) +
+  geom_line()+
+  geom_point()
+p
+
+#They need to sample about 70 fish to get 0.8 power
+
+```
+
+
 Run the simulation for different numbers of fish. How many are needed to get enough power?
 
 Plot your results.
