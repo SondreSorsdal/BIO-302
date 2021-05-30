@@ -6,11 +6,11 @@ use_git_config(
 )
 
 
+#Testiing to see if this get uploaded to git from clone
 
 
 
-
-use_github()
+#use_github()
 
 #packages
 library(tidyverse)
