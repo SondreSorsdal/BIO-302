@@ -5,9 +5,9 @@ use_git_config(
   user.email = "sondre.sorsdal@gmail.com.com"
 )
 
-test
+testv2
 
-
+gitcreds::gitcreds_set()
 
 
 use_github()
