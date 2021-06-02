@@ -7,7 +7,7 @@ output:
     progressive: true
     allow_skip: true
 description: "Non-linear least-squares with nlme"
-runtime: shinyrmd
+runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +21,7 @@ library("tidyverse")
 library("nlme")
 library("conflicted")
 library("broom")
+library("shiny")
 
 #fix conflicts
 conflict_prefer("filter", winner = "dplyr")
