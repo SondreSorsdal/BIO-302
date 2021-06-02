@@ -93,6 +93,26 @@ The new model has a lower AIC, meaning it is better.
 
 7) Repeat the above 1000 times and find how autocorrelation affects the distribution of the p-value and the effect size.
 
+```{r}
+
+
+
+
+library(broom.mixed)#package that allows glancing gls
+re <-rerun(1000, {ts.sim <- arima.sim(list(order = c(1,0,0), 
+                        ar = 0.5), 
+                   n = 100)
+time.vector <- 1:100
+lm(ts.sim ~time.vector)
+}) %>% 
+  map_dfr(glance) # using glance to get usable information out
+
+ggplot(data = re, aes(x = p.value))+ #choosing p-value to be shown in histogram
+  geom_histogram()
+
+
+```
+
 
 ## Real data
 
@@ -110,11 +130,16 @@ data("LakeHuron")
 mod1 <- lm(LakeHuron~time(LakeHuron))
 summary(mod1)
 
-plot(mod1)
+view(LakeHuron)
 ```
 
 
 3) Regress the LakeHuron lake level against year using a linear model. Is there a significant trend?
+
+```{r}
+lm.2 <- lm(LakeHuron~time)
+```
+
 
 4) Plot the autocorrelation and partial autocorrelation functions for the residuals from this regression. Interpret them.
 
