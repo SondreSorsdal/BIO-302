@@ -19,6 +19,8 @@ ts.sim <-arima.sim(list(order = c(1,0,0), #specifying that this is a AR1 model
                         ar = 0.5), #autocrolleation coeficient
                    n = 100) #number of observations
 
+time.vector <- 1:100
+
 
 ```
 
@@ -34,7 +36,10 @@ ts.plot(ts.sim)
 3) Regress the timeseries against time with an OLS model. Does the model appear to be statistically significant?
 
 ```{r}
-summary(ts.sim)
+#normally use a lm instead of gls
+gls.1 <- gls(ts.sim ~ time.vector)
+
+anova(gls.1)
 ```
 
 
