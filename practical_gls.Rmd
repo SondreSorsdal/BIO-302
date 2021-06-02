@@ -41,6 +41,9 @@ Fit an anova using `lm` between `Petal.Length` and species and examine the diagn
 iris.df <- lm(Petal.Length ~ Species, data = iris)
 anova(iris.df)
 
+par(mfrow=c(2,2))  
+plot(iris.df)
+
 ```
 
 
@@ -51,6 +54,8 @@ Fit a `gls` for the same model. Have the coefficients changed? (remember to load
 iris_gls.df <- gls(Petal.Length ~ Species, data = iris)
 anova(iris_gls.df)
 
+par(mfrow=c(2,2))  
+plot(iris_gls.df)
 ```
 
 
