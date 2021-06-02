@@ -62,8 +62,8 @@ plot(iris_gls.df)
 Fit a `gls` for the same model but allow the variance to be different for each species by adding `varIdent` to the `weights` argument of the model. 
 
 ```{r}
-
-iris_gls1.df <- gls(Petal.Length ~ Species, data = iris, Petal.Length = varIdent(form = ~ 1|treat))
+#Why does this not work?
+iris_gls1.df <- gls(Petal.Length ~ Species, data = iris, weights = varIdent(form = ~ 1|Species))
 
 ```
 
@@ -71,8 +71,7 @@ iris_gls1.df <- gls(Petal.Length ~ Species, data = iris, Petal.Length = varIdent
 Use `AIC` to test if this is a better model.
 
 ```{r}
-#cannot run this since there was a problem with the former task.
-#But here is how its done:
+
 
 anova(iris_gls.df, iris_gls1.df)
 
