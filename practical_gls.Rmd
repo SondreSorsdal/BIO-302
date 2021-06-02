@@ -1,0 +1,76 @@
+---
+title: "Practical 3"
+author: "Richard J. Telford"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## GLS
+
+With the built-in `iris` data.
+
+```{r}
+library(tidyverse)
+library(nlme)
+```
+
+
+Make a plot to show how `Petal.Length` varies between species.
+
+```{r}
+ggplot(iris, aes( x = Species, y = Sepal.Length)) +
+  geom_boxplot()
+```
+
+
+Find the variance of `Petal.Length` for each species.
+
+```{r}
+iris %>% 
+    group_by(Species) %>% 
+  summarise(var = var(Sepal.Length))
+```
+
+
+Fit an anova using `lm` between `Petal.Length` and species and examine the diagnostic plots.
+
+```{r}
+iris.df <- lm(Petal.Length ~ Species, data = iris)
+anova(iris.df)
+
+```
+
+
+
+Fit a `gls` for the same model. Have the coefficients changed? (remember to load ´nlme´ package)
+
+```{r}
+iris_gls.df <- gls(Petal.Length ~ Species, data = iris)
+anova(iris_gls.df)
+
+```
+
+
+Fit a `gls` for the same model but allow the variance to be different for each species by adding `varIdent` to the `weights` argument of the model. 
+
+```{r}
+
+iris_gls1.df <- gls(Petal.Length ~ Species, data = iris, Petal.Length = varIdent(form = ~ 1|treat))
+
+```
+
+
+Use `AIC` to test if this is a better model.
+
+```{r}
+#cannot run this since there was a problem with the former task.
+#But here is how its done:
+
+anova(iris_gls.df, iris_gls1.df)
+
+
+```
+
